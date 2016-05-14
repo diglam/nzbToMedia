@@ -1,29 +1,22 @@
 # -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+
+
 class Error(Exception):
-    """Base class for exceptions in subliminal."""
-    pass
+    """Base class for exceptions in subliminal"""
 
 
 class ProviderError(Error):
-    """Exception raised by providers."""
-    pass
+    """Exception raised by providers"""
 
 
 class ConfigurationError(ProviderError):
-    """Exception raised by providers when badly configured."""
-    pass
+    """Exception raised by providers when badly configured"""
 
 
 class AuthenticationError(ProviderError):
-    """Exception raised by providers when authentication failed."""
-    pass
-
-
-class TooManyRequests(ProviderError):
-    """Exception raised by providers when too many requests are made."""
-    pass
+    """Exception raised by providers when authentication failed"""
 
 
 class DownloadLimitExceeded(ProviderError):
-    """Exception raised by providers when download limit is exceeded."""
-    pass
+    """Exception raised by providers when download limit is exceeded"""
