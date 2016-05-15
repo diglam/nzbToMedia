@@ -92,7 +92,7 @@ class ProviderPool(object):
 
         """
         subtitles = []
-
+        logger.debug('Providers:%s', self.providers)
         for name in self.providers:
             # check discarded providers
             if name in self.discarded_providers:
@@ -179,13 +179,16 @@ class ProviderPool(object):
 
         """
         # sort subtitles by score
-        scored_subtitles = sorted([(s, compute_score(s.get_matches(video, hearing_impaired=hearing_impaired), video,
-                                                     scores=scores))
-                                  for s in subtitles], key=operator.itemgetter(1), reverse=True)
+        #logger.debug('*** Sorting subtitles by score ***')
+        scored_subtitles = [(s, compute_score(s.get_matches(video, hearing_impaired=hearing_impaired), video, 
+                                                            scores=scores)) for s in subtitles]
+        #logger.debug('Unsorted subtitles:%s', scored_subtitles)
+        sorted_subtitles = sorted(scored_subtitles, key=operator.itemgetter(1), reverse=True)
+        #logger.debug('Sorted subtitles:%s', sorted_subtitles)
 
         # download best subtitles, falling back on the next on error
         downloaded_subtitles = []
-        for subtitle, score in scored_subtitles:
+        for subtitle, score in sorted_subtitles:
             # check score
             if score < min_score:
                 logger.info('Score %d is below min_score (%d)', score, min_score)
